@@ -1,0 +1,27 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Report Exercice 3
+
+```{r}
+#Von Hand gereinigte Database S1 als CSV Datei in RStudio einlesen:
+Database_S1 <- read.table("/Users/niklasnowak/Desktop/UNI/FS23/Geodata_Science/Report_exercice3/Daten_gereinigt/Database_S1_gereinigt.2_.csv",sep=",",header=TRUE)
+
+experiments <- aggregate(cbind(iCO2m, aCO2m) ~ Experiment, data = Database_S1, FUN = mean )
+
+RR = log((experiments$iCO2m/experiments$aCO2m))
+```
+
+```{r warning=FALSE}
+library(tidyverse)
+library(knitr)
+
+RR_Experiment <- Database_S1 |>
+  mutate(RR = log((Database_S1$iCO2m/Database_S1$aCO2m))) |>
+  group_by(Experiment) |>
+  summarise(RR = mean(RR)) 
+
+kable(RR_Experiment)
+```
