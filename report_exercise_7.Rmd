@@ -1,3 +1,5 @@
 ```{r}
 plot(seq(1,100),seq(101,200))
 ```
+Don't you wanna work more efficiently?
+Use github
